@@ -33,7 +33,7 @@ class ControlROS:
         else:
             self.tl = tf2_ros.TransformListener(tf2_ros.Buffer())
         self.controller = controller
-        self.tf_prefix = rospy.get_param("~tf_prefix","")
+        self.tf_prefix = tf_prefix
 
     def start(self):
         self.setup_pub_sub()

@@ -1,4 +1,4 @@
-!/usr/bin/env python
+#!/usr/bin/env python
 
 import argparse
 import rospy
@@ -32,10 +32,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--speed", type=float, default=2, help="Max speed along the path"
     )
-    parser.add_argument(
-        "--tf_prefix", type=str, default="", help="TF Prefix"
-    )
-
     parser.add_argument(
         "--reset",
         action="store_true",
@@ -94,7 +90,6 @@ if __name__ == "__main__":
     del extra_args["speed"]
     del extra_args["reset"]
     del extra_args["path_name"]
-    del extra_args["tf_prefix"]
     extra_args = {key: value for key, value in extra_args.items() if value is not None}
     start_config = (0, 0, 0)
     waypoints = path_generators[args.path_name](**extra_args)
@@ -110,7 +105,7 @@ if __name__ == "__main__":
     # Our generated paths start at (0, 0, 0), so let's make the frame correspond
     # to the current base_footprint, aka the frame where the current position is
     # (0, 0, 0)
-    h.frame_id = args.tf_prefix + "base_footprint"
+    h.frame_id = "base_footprint"
     h.stamp = rospy.Time.now()
     desired_speed = args.speed
 
